@@ -27,12 +27,9 @@ public class MainTp1 {
                 .limit(5)
                 .build();
 
-        System.out.println("ConsoleVisitor");
         QueryVisitor visitor = new ConsoleVisitor();
         query.accept(visitor);
-
-        System.out.println("\n");
-        System.out.println("JsonVisitor");
+        System.out.println("\n*****************");
         JsonVisitor jsonVisitor = new JsonVisitor();
         query.accept(jsonVisitor);
         jsonVisitor.print();
