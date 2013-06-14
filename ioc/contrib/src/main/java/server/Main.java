@@ -8,6 +8,11 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         final TaskServer server = new DaooTaskServer();
-        server.start(new PoolThreadTaskExecutor2(), 8080);
+        try {
+
+            server.start(ThreadTaskExecutorProvider.getExecutor(), 8080);
+        } catch (Exception e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 }

@@ -2,6 +2,7 @@ package server;
 
 import daoo.ioc.TaskExecutor;
 
+import java.io.*;
 import java.util.ServiceLoader;
 
 /**
@@ -20,7 +21,40 @@ public class ThreadTaskExecutorProvider {
         }
     }
 
+    public static TaskExecutor getExecutor() throws Exception {
+        final ServiceLoader<TaskExecutor> loader = ServiceLoader.load(TaskExecutor.class);
+        for (TaskExecutor taskExecutor : loader) {
+            if(taskExecutor.getClass().getName().equals(getImplementationName())){
+                return taskExecutor;
+            }
+        }
+        throw new Exception("No such Executor found");
+    }
+
+    private static String getImplementationName() {
+        final FileReader fr;
+        try {
+            fr = new FileReader("Executor.txt");
+            final BufferedReader br = new BufferedReader(fr);
+            String s = br.readLine();
+            fr.close();
+            return s;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        return "";
+    }
+
+
+
+
     public static void main(String[] args) {
-        ThreadTaskExecutorProvider.printEncoders();
+        try {
+            ThreadTaskExecutorProvider.getExecutor();
+        } catch (Exception e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 }
