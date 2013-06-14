@@ -12,7 +12,7 @@ import java.util.ServiceLoader;
  * Time: 10:52
  * To change this template use File | Settings | File Templates.
  */
-public class ThreadTaskExecutorProvider {
+public class TaskExecutorProvider {
 
     public static void printEncoders(){
         final ServiceLoader<TaskExecutor> loader = ServiceLoader.load(TaskExecutor.class);
@@ -52,7 +52,7 @@ public class ThreadTaskExecutorProvider {
 
     public static void main(String[] args) {
         try {
-            ThreadTaskExecutorProvider.getExecutor();
+            TaskExecutorProvider.getExecutor();
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

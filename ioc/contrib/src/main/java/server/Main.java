@@ -1,6 +1,7 @@
 package server;
 
 import daoo.ioc.TaskServer;
+import ioc.Context;
 
 import java.io.IOException;
 
@@ -10,7 +11,7 @@ public class Main {
         final TaskServer server = new DaooTaskServer();
         try {
 
-            server.start(ThreadTaskExecutorProvider.getExecutor(), 8080);
+            server.start(Context.getTaskExecutor(), 8080);
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

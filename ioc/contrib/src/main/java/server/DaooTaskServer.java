@@ -1,12 +1,10 @@
 package server;
 
 import com.sun.istack.internal.NotNull;
-import daoo.ioc.MsgEncoder;
 import daoo.ioc.Task;
 import daoo.ioc.TaskExecutor;
 import daoo.ioc.TaskServer;
-import encoder.MsgEncoderProvider;
-import encoder.ReverseEncoder;
+import ioc.Context;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -20,14 +18,12 @@ public class DaooTaskServer implements TaskServer {
             while (true) {
                 System.out.println("Socket is waiting for request");
                 Socket socket = serverSocket.accept();
-                Task task = new EncodeDecodeTask(socket, MsgEncoderProvider.getMsgEncoder());
+                Task task = new EncodeDecodeTask(socket, Context.getMsgEncoder());
                 System.out.println("Socket is executing request");
                 executor.execute(task);
             }
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (Exception e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
 
 
